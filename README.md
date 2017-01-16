@@ -1,6 +1,6 @@
 # AnimalFrenzy
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.21.
+This project [Animal Frenzy](https://dkemper01.github.io/animal-frenzy/) was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.21.  It's a simple case study in using Angular 2 to display image results from the Google Custom Search API. 
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
