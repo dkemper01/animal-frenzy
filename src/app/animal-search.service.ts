@@ -16,7 +16,8 @@ export class AnimalSearchService {
 		
 		const cx = '017399694708952684169%3Ai75sqt8j8ko';
 		const apiKey = 'AIzaSyAvn8SAwatK2SnhTPtY29T02LisZ7JSI78';
-		const queryParams = `q=${terms}&cx=${cx}&key=${apiKey}`;
+		const safetyLevel = 'high';
+		const queryParams = `q=${terms}&cx=${cx}&key=${apiKey}&safe=${safetyLevel}`;
 		const searchUrl = 'https://www.googleapis.com/customsearch/v1?';
 		
 		// The Angular http.get returns an RxJS Observable.  We convert it to a promise.  

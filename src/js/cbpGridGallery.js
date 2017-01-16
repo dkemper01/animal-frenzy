@@ -196,6 +196,11 @@
 		// reset viewport items
 		this._setViewportItems();
 
+		if (this.currentItem == null) {
+			alert('[CBPGridGallery._navigate]: this.currentItem is null!');
+			return;
+		}
+		
 		var self = this,
 			itemWidth = this.currentItem.offsetWidth,
 			// positions for the centered/current item, both the side items and the incoming ones

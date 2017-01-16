@@ -1,3 +1,12 @@
+@keyframes closeColorCrossFade {
+	from {
+		color: #31373a;
+	}
+	to {
+		color: #33c3f0;
+	}
+}
+
 /* General style */
 .grid-gallery ul {
 	list-style: none;
@@ -174,6 +183,11 @@
 	right: 0;
 	padding: 0.5em 1em;
 	color: #31373a;
+	animation-name: closeColorCrossFade;
+	animation-timing-function: ease-in-out;
+	animation-duration: 3s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
 }
 
 .icon:before,
