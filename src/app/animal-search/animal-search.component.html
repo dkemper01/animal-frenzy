@@ -1,0 +1,12 @@
+<div class="container search-controls">
+	<div class="row">
+		<div class="nine columns has-float-label">
+			<input #searchinput type="text" id="searchinput" name="searchinput" placeholder="eels of the pacific" (keyup.enter)="getResults(searchinput.value);">
+			<label for="searchinput" [ngClass]="isActive ? 'active' : 'inactive'">Search Terms</label>
+		</div>
+		<div class="three columns">
+			<button class="button-primary" (click)="getResults(searchinput.value);">Search</button>
+		</div>
+	</div>
+</div>
+<animal-search-results [results]="results"></animal-search-results>

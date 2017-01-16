@@ -1,0 +1,36 @@
+<div id="grid-gallery" class="grid-gallery">
+	<section class="grid-wrap">
+		<ul class="grid">
+			<li class="grid-sizer"></li>
+			<!-- for Masonry column width -->
+			<li *ngFor="let item of results">
+				<figure>
+					<img [src]="item.src" alt="animal image result" />
+					<figcaption>
+						<div>{{item.title}}</div>
+						<p>{{item.description}}</p>
+					</figcaption>
+				</figure>
+			</li>
+		</ul>
+	</section>
+	<section class="slideshow">
+		<ul>
+			<li *ngFor="let item of results">
+				<figure>
+					<figcaption>
+						<div>{{item.title}}</div>
+						<p>{{item.description}}</p>
+					</figcaption>
+					<img [src]="item.src" alt="animal image result" />
+				</figure>
+			</li>
+		</ul>
+		<nav>
+			<span class="icon nav-prev fa fa-arrow-left"></span>
+			<span class="icon nav-next fa fa-arrow-right" aria-hidden="true"></span>
+			<span class="icon nav-close fa fa-times-circle-o"></span>
+		</nav>
+		<div class="info-keys icon">Navigate with arrow keys</div>
+	</section>
+</div>
