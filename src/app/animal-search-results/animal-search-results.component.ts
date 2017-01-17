@@ -51,6 +51,8 @@ export class AnimalSearchResultsComponent implements OnInit {
 	}
 	
 	ngOnDestroy() {
-		this.cbpGridGallery.destroy();
+		if (this.cbpGridGallery) {
+			this.cbpGridGallery.destroy();
+		}
 	}
 }

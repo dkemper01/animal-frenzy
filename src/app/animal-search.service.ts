@@ -37,11 +37,26 @@ export class AnimalSearchService {
 		let searchItems = new Array<ImageObjectInfo>();
 	
 		body.items.forEach(item => {
+			
+			if (!item.pagemap) { return } 
+			
 			const title = item.title;
 			const temp: any = item.pagemap;
 			const cseImage: Array<Object> = temp.cse_image;
+			const vid: Array<Object> = temp.videoobject;
 			let topImageObject: Array<ImageObjectInfo> = temp.imageobject as Array<ImageObjectInfo>;
 			
+			if (vid && vid.length > 0) {
+				const img: ImageObjectInfo = new ImageObjectInfo();
+				const thumb: string = (vid.pop())["thumbnailurl"];
+				
+				if (thumb) {
+					img.src = thumb;
+					img.title = title;
+					searchItems.push(img);
+				}
+			} 
+
 			if (cseImage && (cseImage.length > 0)) {
 				const img: ImageObjectInfo = new ImageObjectInfo();
 				img.src = (cseImage.pop())["src"];
