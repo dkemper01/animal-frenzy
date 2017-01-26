@@ -1,6 +1,6 @@
 {
   "project": {
-    "version": "1.0.0-beta.21",
+    "version": "1.0.0-beta.26",
     "name": "animal-frenzy"
   },
   "apps": [
@@ -27,7 +27,7 @@
 				"../node_modules/imagesloaded/imagesloaded.pkgd.js",
 				"../node_modules/desandro-classie/classie.js",
 				"../node_modules/masonry-layout/dist/masonry.pkgd.js",
-				"js/cbpGridGallery.js"
+				"./js/cbpGridGallery.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

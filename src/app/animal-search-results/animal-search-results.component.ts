@@ -6,13 +6,13 @@ import '../../../node_modules/modernizr/modernizr.js';
 import 'imagesloaded';
 import 'desandro-classie';
 import 'masonry-layout';
-import '../../js/cbpGridGallery.js';
 
 @Component({
   selector: 'animal-search-results',
   templateUrl: './animal-search-results.component.html',
   styleUrls: ['./animal-search-results.component.scss']
 })
+
 export class AnimalSearchResultsComponent implements OnInit {
 
 	@Input() results: Array<ImageObjectInfo>;

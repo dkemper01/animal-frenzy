@@ -19,7 +19,7 @@ import { AnimalSearchResultsComponent } from './animal-search-results/animal-sea
     FormsModule,
     HttpModule
   ],
-	providers: [AnimalSearchService], /* bad alternative: see bottom of page (https://angular.io/docs/ts/latest/guide/hierarchical-dependency-injection.html) */
+	providers: [], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
