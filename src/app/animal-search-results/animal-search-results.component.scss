@@ -17,7 +17,7 @@
 }
 
 .edit-btn {
-	font-size: 2.2em;
+	font-size: 2.0em;
 	@extend .cross-fade;
 }
 
@@ -183,7 +183,7 @@
 
 .slideshow figcaption {
 	padding: 0 0 20px 5px;
-	margin-right: 15%;
+	margin-right: 20%;
 }
 
 /* Navigation */
@@ -194,7 +194,7 @@
 	text-align: center;
 	padding: 3%;
 	cursor: pointer;
-	font-size: 2.2em;
+	font-size: 2.25em;
 }
 
 .slideshow nav span.nav-prev,
@@ -291,7 +291,7 @@
 	}
 
 	.med-edit-btn {
-		font-size: 2.2em;
+		font-size: 2.0em;
 		@extend .med-cross-fade;
 	}
 	
@@ -301,16 +301,14 @@
 	}
 	
 	.slideshow figure {	
-		width: 95%;
-		height: auto;
+		width: auto;
+		height: 100%;
 		background: #fff;
 		overflow: hidden;
-		margin-left: 5%;
 
 		.edit {
 			position: absolute;	
-			top: 3%;
-			right: 8%;
+			right: 10%;
 
 			span {
 				@extend .med-edit-btn;
@@ -342,7 +340,7 @@
 
 	.slideshow nav span,
 	.slideshow nav span.nav-close {
-		font-size: 1.8em;
+		font-size: 2.0em;
 		padding: 0.3em;
 	}
 
@@ -359,9 +357,6 @@
 	
 	.slideshow figure {	
 		.edit {
-			position: absolute;	
-			top: 3%;
-			right: 9%;
 		}		
 	}
 }
