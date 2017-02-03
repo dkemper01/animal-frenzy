@@ -308,7 +308,9 @@
 
 		.edit {
 			position: absolute;	
+			top: 11px;
 			right: 10%;
+			padding: 0 5px 0 0;
 
 			span {
 				@extend .med-edit-btn;
@@ -357,6 +359,10 @@
 	
 	.slideshow figure {	
 		.edit {
+			position: absolute;	
+			top: 11px;
+			right: 10%;
+			padding: 0 5px 0 0;
 		}		
 	}
 }
