@@ -2,13 +2,14 @@
 import { HttpModule } from '@angular/http';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { TinyeditorComponent } from './tinyeditor/tinyeditor.component';
 import { AnimalSearchResultsComponent } from './animal-search-results/animal-search-results.component';
 import { AnimalSearchComponent } from './animal-search/animal-search.component';
 
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AnimalSearchResultsComponent, AnimalSearchComponent, AppComponent],
+      declarations: [TinyeditorComponent, AnimalSearchResultsComponent, AnimalSearchComponent, AppComponent],
 			imports: [HttpModule]
     });
   });

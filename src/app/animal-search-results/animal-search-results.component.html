@@ -23,6 +23,7 @@
 						<p>{{item.description}}</p>
 					</figcaption>
 					<img [src]="item.src" alt="animal image result" />
+					<div class="edit" (click)="showTinyEditor(item.src, item.title)"><span class="icon fa fa-pencil-square-o" aria-hidden="true"></span></div>
 				</figure>
 			</li>
 		</ul>
@@ -32,5 +33,9 @@
 			<span class="icon nav-close fa fa-times-circle-o"></span>
 		</nav>
 		<div class="info-keys icon">Navigate with arrow keys</div>
+		<div class="edit-container" *ngIf="showEditor">
+			<tinyeditor [elementId]="'tinyeditor-id'" [itemImgSrc]="tinyImgSrc" [itemTitle]="tinyTitle" (editorClosed)="hideTinyEditor($event)" (editorKeyup)="captureInput($event)"></tinyeditor>
+		</div>
 	</section>
 </div>
+

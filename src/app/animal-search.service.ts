@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response, URLSearchParams } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { ImageObjectInfo, ImageObject } from './imageObject';
 import { PageMap } from './pageMap';
 import { ItemInfo, Items } from './items'
@@ -31,6 +32,20 @@ export class AnimalSearchService {
 										.catch(this.handleError);
 	}
 	
+	public getItemsAsync(terms: string): Observable<Array<ImageObjectInfo>> {
+		
+		const cx = '017399694708952684169%3Ai75sqt8j8ko';
+		const apiKey = 'AIzaSyAvn8SAwatK2SnhTPtY29T02LisZ7JSI78';
+		const safetyLevel = 'high';
+		const queryParams = `q=${terms}&cx=${cx}&key=${apiKey}&safe=${safetyLevel}`;
+		const searchUrl = 'https://www.googleapis.com/customsearch/v1?';
+		
+		// The Angular http.get returns an RxJS Observable.
+		// 
+    return this.http.get(searchUrl + queryParams)
+										.map(response => this.extractData(response));
+	}
+	
 	private extractData(res: Response): Array<ImageObjectInfo> {
 		
     let body = res.json();
@@ -38,7 +53,7 @@ export class AnimalSearchService {
 	
 		body.items.forEach(item => {
 			
-			if (!item.pagemap) { return } 
+			if (!item.pagemap) { return; } 
 			
 			const title = item.title;
 			const temp: any = item.pagemap;
@@ -62,7 +77,7 @@ export class AnimalSearchService {
 				img.src = (cseImage.pop())["src"];
 				img.title = title;
 				searchItems.push(img);			
-			} else {		
+			} else if (topImageObject) {		
 				topImageObject.forEach(img => {
 					img.title = title;					
 					img.src = (img.src && img.src.length) ? img.src : (img.contenturl && img.contenturl.length) ? img.contenturl : (img.image && img.image.length) ? img.image : img.url;				

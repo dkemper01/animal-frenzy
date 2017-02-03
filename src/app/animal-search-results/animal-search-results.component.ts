@@ -1,4 +1,5 @@
 import { Component, Input, AfterViewChecked, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { ItemInfo, Items } from '../items';
 import { ImageObjectInfo } from '../imageObject';
 import { PageMap } from '../pageMap';
@@ -13,12 +14,16 @@ import 'masonry-layout';
   styleUrls: ['./animal-search-results.component.scss']
 })
 
-export class AnimalSearchResultsComponent implements OnInit {
+export class AnimalSearchResultsComponent implements OnInit, OnChanges, AfterViewChecked, OnDestroy {
 
 	@Input() results: Array<ImageObjectInfo>;
+	@Input() resultsAsync: Observable<Array<ImageObjectInfo>>;
 	cbpGridGallery: CBPGridGallery;
+	tinyImgSrc: string;
+	tinyTitle: string;
 	changesDetected: boolean;
 	initInvoked: boolean;
+	showEditor: boolean;
 	
   constructor() { }
 	
@@ -54,5 +59,19 @@ export class AnimalSearchResultsComponent implements OnInit {
 		if (this.cbpGridGallery) {
 			this.cbpGridGallery.destroy();
 		}
+	}
+	
+	captureInput(event: string) {
+		localStorage.setItem(this.tinyImgSrc, event);		
+	}
+	
+	showTinyEditor(imgSrc: string, title: string) {
+		this.tinyImgSrc = imgSrc;
+		this.tinyTitle = title;
+		this.showEditor = true;		
+	}
+	
+	hideTinyEditor(event) {
+		this.showEditor = false;
 	}
 }

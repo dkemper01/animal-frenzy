@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, EventEmitter, Input, Output} from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'tinyeditor',
@@ -12,7 +14,7 @@ export class TinyeditorComponent implements OnInit, AfterViewInit, OnDestroy {
 	@Input() elementId: string;
 	@Input() itemImgSrc: string;
 	@Input() itemTitle: string;
-  @Output() editorKeyup = new EventEmitter<any>();
+  @Output() editorKeyup = new EventEmitter<string>();
 	@Output() editorClosed = new EventEmitter<boolean>();
   
 	private editor:any;
@@ -22,6 +24,7 @@ export class TinyeditorComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() { }
 	
 	ngAfterViewInit() {
+		
     tinymce.init({
       selector: '#' + this.elementId,
       plugins: ['link', 'paste', 'textcolor', 'table'],
@@ -29,10 +32,15 @@ export class TinyeditorComponent implements OnInit, AfterViewInit, OnDestroy {
       skin_url: 'assets/skins/lightgray',
       setup: editor => {
         this.editor = editor;
-				const eventStream = Observable.fromEvent(editor.getElement(), 'keyup')
-				.debounceTime(1000);
 				
-				eventStream.subscribe(t => this.editorKeyup.emit(t));
+				Observable
+					.fromEvent(editor, 'keyup')
+					.map((i:KeyboardEvent) => i.target )
+					.debounceTime(1000)				
+					.subscribe((c:HTMLElement) => {
+						this.editorKeyup.emit(c.innerHTML); 
+					});
+				
 				editor.addButton('close', {
       		text: 'X',
 					onclick: () => {
@@ -47,7 +55,10 @@ export class TinyeditorComponent implements OnInit, AfterViewInit, OnDestroy {
     		});
       },
 			init_instance_callback: (editor) => {
-
+				let existingContent = localStorage.getItem(this.itemImgSrc);
+				if (existingContent && existingContent.length) {
+					editor.setContent(existingContent);
+				}
 			}
     });
   }

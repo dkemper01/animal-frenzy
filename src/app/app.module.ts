@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { AnimalSearchService } from './animal-search.service';
 import { AnimalSearchComponent } from './animal-search/animal-search.component';
 import { AnimalSearchResultsComponent } from './animal-search-results/animal-search-results.component';
+import { TinyeditorComponent } from './tinyeditor/tinyeditor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AnimalSearchComponent,
-    AnimalSearchResultsComponent
+    AnimalSearchResultsComponent,
+    TinyeditorComponent
   ],
   imports: [
     BrowserModule,

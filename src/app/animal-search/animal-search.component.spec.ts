@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { ImageObjectInfo, ImageObject } from '../imageObject';
+import { TinyeditorComponent } from '../tinyeditor/tinyeditor.component';
 import { AnimalSearchService } from '../animal-search.service';
 import { AnimalSearchResultsComponent } from '../animal-search-results/animal-search-results.component';
 import { AnimalSearchComponent } from './animal-search.component';
@@ -14,7 +15,7 @@ describe('AnimalSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AnimalSearchResultsComponent, AnimalSearchComponent ],
+      declarations: [TinyeditorComponent, AnimalSearchResultsComponent, AnimalSearchComponent ],
 			providers: [AnimalSearchService],
 			imports: [HttpModule]
     })

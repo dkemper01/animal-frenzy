@@ -7,6 +7,28 @@
 	}
 }
 
+.cross-fade {
+	color: #31373a;
+	animation-name: closeColorCrossFade;
+	animation-timing-function: ease-in-out;
+	animation-duration: 3s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+}
+
+.edit-btn {
+	font-size: 2.2em;
+	@extend .cross-fade;
+}
+
+@mixin size-and-location($w, $h, $t, $l, $p) {
+	position: $p;
+	width: $w;
+	height: $h;
+	top: $t;
+	left: $l;
+}
+
 /* General style */
 .grid-gallery ul {
 	list-style: none;
@@ -68,12 +90,8 @@
 
 /* Slideshow style */
 .slideshow {
-	position: fixed;
+	@include size-and-location(100%, 100%, 0, 0, fixed);
 	background: rgba(0,0,0,0.6);
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
 	z-index: 500;
 	opacity: 0;
 	visibility: hidden;
@@ -127,12 +145,8 @@
 }
 
 .slideshow li:after {
+	@include size-and-location(100%, 100%, 0, 0, absolute);
 	content: '';
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
 	background: rgba(255,255,255,0.8);
 	-webkit-transition: opacity 0.3s;
 	transition: opacity 0.3s;
@@ -146,14 +160,30 @@
 }
 
 .slideshow figure {
+	
 	width: 100%;
 	height: 100%;
 	background: #fff;
 	overflow: hidden;
+	
+	.edit {
+		position: absolute;	
+		top: 3%;
+		right: 3%;
+		
+		span {
+		  @extend .edit-btn;
+			&:hover {
+				opacity: 0.7;
+			}
+		}
+		
+	}
 }
 
 .slideshow figcaption {
-	padding: 0 0 20px 10px;
+	padding: 0 0 20px 5px;
+	margin-right: 15%;
 }
 
 /* Navigation */
@@ -182,12 +212,7 @@
 	top: 0;
 	right: 0;
 	padding: 0.5em 1em;
-	color: #31373a;
-	animation-name: closeColorCrossFade;
-	animation-timing-function: ease-in-out;
-	animation-duration: 3s;
-	animation-direction: alternate;
-	animation-iteration-count: infinite;
+	@extend .cross-fade;
 }
 
 .icon:before,
@@ -239,12 +264,66 @@
 	content: "\f138";
 }
 
+.edit-container {
+		position: fixed;
+		top: 5%;
+	  right: 5%;
+	  left: 5%;
+		bottom: 30%;
+		margin: 0 auto; 
+    z-index: 1000;
+	  -webkit-transition: all 500ms ease-out 1s;
+    -moz-transition: all 500ms ease-out 1s;
+    -o-transition: all 500ms ease-out 1s;
+    transition: all 500ms ease-out 1s;
+}
+
 /* Example media queries (reduce number of columns and change slideshow layout) */
 
 @media screen and (max-width: 60em) {
+	.med-cross-fade {
+		color: #31373a;
+		animation-name: closeColorCrossFade;
+		animation-timing-function: ease-in-out;
+		animation-duration: 3s;
+		animation-direction: alternate;
+		animation-iteration-count: infinite;
+	}
+
+	.med-edit-btn {
+		font-size: 2.2em;
+		@extend .med-cross-fade;
+	}
+	
 	/* responsive columns; see "Element sizing" on http://masonry.desandro.com/options.html */
 	.grid li {
 		width: 33.3%;
+	}
+	
+	.slideshow figure {	
+		width: 95%;
+		height: auto;
+		background: #fff;
+		overflow: hidden;
+		margin-left: 5%;
+
+		.edit {
+			position: absolute;	
+			top: 3%;
+			right: 8%;
+
+			span {
+				@extend .med-edit-btn;
+				&:hover {
+					opacity: 0.7;
+				}
+			}
+		}
+		
+		.figcaption {
+			padding: 0 0 20px 5px;
+			margin-right: 3em;
+		}
 	}
 
 	.slideshow li {
