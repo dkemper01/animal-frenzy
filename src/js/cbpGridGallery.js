@@ -175,14 +175,24 @@
 		if( this.prevItem ) {
 			classie.addClass( this.prevItem, 'show' );
 			var translateVal = Number( -1 * ( getViewportW() / 2 + this.prevItem.offsetWidth / 2 ) );
-			setTransform( this.prevItem, support.support3d ? 'translate3d(' + translateVal + 'px, 0, -150px)' : 'translate(' + translateVal + 'px)' );
+			setTransform( this.prevItem, support.support3d ? 'translate3d(' + translateVal + this._translateZ() : 'translate(' + translateVal + 'px)' );
 		}
 		if( this.nextItem ) {
 			classie.addClass( this.nextItem, 'show' );
 			var translateVal = Number( getViewportW() / 2 + this.nextItem.offsetWidth / 2 );
-			setTransform( this.nextItem, support.support3d ? 'translate3d(' + translateVal + 'px, 0, -150px)' : 'translate(' + translateVal + 'px)' );
+			setTransform( this.nextItem, support.support3d ? 'translate3d(' + translateVal + this._translateZ() : 'translate(' + translateVal + 'px)' );
 		}
 	};
+	
+	CBPGridGallery.prototype._translateZ = function() { 
+		var windowSize = window.outerWidth;
+		
+		if (windowSize > 768) {
+			return 'px, 0, -150px)';
+		} else {
+			return 'px, 0, 0)';
+		}
+	}
 
 	CBPGridGallery.prototype._navigate = function( dir ) {
 		if( this.isAnimating ) return;
@@ -202,21 +212,21 @@
 		}
 		
 		var self = this,
-			itemWidth = this.currentItem.offsetWidth,
-			// positions for the centered/current item, both the side items and the incoming ones
-			transformLeftStr = support.support3d ? 'translate3d(-' + Number( getViewportW() / 2 + itemWidth / 2 ) + 'px, 0, -150px)' : 'translate(-' + Number( getViewportW() / 2 + itemWidth / 2 ) + 'px)',
-			transformRightStr = support.support3d ? 'translate3d(' + Number( getViewportW() / 2 + itemWidth / 2 ) + 'px, 0, -150px)' : 'translate(' + Number( getViewportW() / 2 + itemWidth / 2 ) + 'px)',
-			transformCenterStr = '', transformOutStr, transformIncomingStr,
-			// incoming item
-			incomingItem;
+		itemWidth = this.currentItem.offsetWidth,
+		// positions for the centered/current item, both the side items and the incoming ones
+		transformLeftStr = support.support3d ? 'translate3d(-' + Number( getViewportW() / 2 + itemWidth / 2 ) + this._translateZ() : 'translate(-' + Number( getViewportW() / 2 + itemWidth / 2 ) + 'px)',
+		transformRightStr = support.support3d ? 'translate3d(' + Number( getViewportW() / 2 + itemWidth / 2 ) + this._translateZ() : 'translate(' + Number( getViewportW() / 2 + itemWidth / 2 ) + 'px)',
+		transformCenterStr = '', transformOutStr, transformIncomingStr,
+		// incoming item
+		incomingItem;
 
 		if( dir === 'next' ) {
-			transformOutStr = support.support3d ? 'translate3d( -' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px, 0, -150px )' : 'translate(-' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px)';
-			transformIncomingStr = support.support3d ? 'translate3d( ' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px, 0, -150px )' : 'translate(' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px)';
+			transformOutStr = support.support3d ? 'translate3d( -' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px, 0, 0 )' : 'translate(-' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px)';
+			transformIncomingStr = support.support3d ? 'translate3d( ' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + this._translateZ() : 'translate(' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px)';
 		}
 		else {
-			transformOutStr = support.support3d ? 'translate3d( ' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px, 0, -150px )' : 'translate(' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px)';
-			transformIncomingStr = support.support3d ? 'translate3d( -' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px, 0, -150px )' : 'translate(-' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px)';
+			transformOutStr = support.support3d ? 'translate3d( ' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px, 0, 0 )' : 'translate(' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px)';
+			transformIncomingStr = support.support3d ? 'translate3d( -' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + this._translateZ() : 'translate(-' + Number( (getViewportW() * 2) / 2 + itemWidth / 2 ) + 'px)';
 		}
 
 		// remove class animatable from the slideshow grid (if it has already)
@@ -371,11 +381,11 @@
 			// update width value
 			if( this.prevItem ) {
 				var translateVal = Number( -1 * ( getViewportW() / 2 + this.prevItem.offsetWidth / 2 ) );
-				setTransform( this.prevItem, support.support3d ? 'translate3d(' + translateVal + 'px, 0, -150px)' : 'translate(' + translateVal + 'px)' );
+				setTransform( this.prevItem, support.support3d ? 'translate3d(' + translateVal + this._translateZ() : 'translate(' + translateVal + 'px)' );
 			}
 			if( this.nextItem ) {
 				var translateVal = Number( getViewportW() / 2 + this.nextItem.offsetWidth / 2 );
-				setTransform( this.nextItem, support.support3d ? 'translate3d(' + translateVal + 'px, 0, -150px)' : 'translate(' + translateVal + 'px)' );
+				setTransform( this.nextItem, support.support3d ? 'translate3d(' + translateVal + this._translateZ() : 'translate(' + translateVal + 'px)' );
 			}
 		}
 	}
