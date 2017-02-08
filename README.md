@@ -1,4 +1,4 @@
-# [![Animal frenzy screenshot](https://dkemper01.github.io/animal-frenzy/assets/images/animal-frenzy-screenshot.png)](https://github.com/dkemper01/animal-frenzy/releases/latest)
+# [![Animal frenzy screenshot](https://dankemper.net/images/animal-frenzy-screenshot.png)](https://github.com/dkemper01/animal-frenzy/releases/latest)
 
 # Animal Frenzy
 
