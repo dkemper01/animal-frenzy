@@ -87,12 +87,21 @@
 
 	CBPGridGallery.prototype._initMasonry = function() {
 		var grid = this.grid;
-		window.imagesLoaded( grid, function() {
-			new window.Masonry( grid, {
-				itemSelector: 'li',
-				columnWidth: grid.querySelector( '.grid-sizer' )
+		var loader = this.el.querySelector( '.loading-container' );
+
+		try {
+			classie.removeClass(loader, 'hide-loader');
+			window.imagesLoaded( grid, function() {
+				new window.Masonry( grid, {
+					itemSelector: 'li',
+					columnWidth: grid.querySelector( '.grid-sizer' )
+				});
+				classie.addClass(loader, 'hide-loader')
 			});
-		});
+		} catch(e) {
+			console.log("[CBPGridGallery.prototype._initMasonry ]: An exception was generated ...");
+			console.log(e);
+		}
 	};
 
 	CBPGridGallery.prototype._initEvents = function() {
@@ -356,6 +365,8 @@
 		}
 		
 		this.currentItem = this.slideshowItems[ this.current ];
+		console.log("[CBPGridGallery.prototype._setViewportItems]: this.currentItem is ...");
+		console.log(this.currentItem);
 	}
 
 	// taken from https://github.com/desandro/vanilla-masonry/blob/master/masonry.js by David DeSandro

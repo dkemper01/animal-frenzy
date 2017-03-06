@@ -17,7 +17,6 @@ import 'masonry-layout';
 export class AnimalSearchResultsComponent implements OnInit, OnChanges, AfterViewChecked, OnDestroy {
 
 	@Input() results: Array<ImageObjectInfo>;
-	@Input() resultsAsync: Observable<Array<ImageObjectInfo>>;
 	cbpGridGallery: CBPGridGallery;
 	tinyImgSrc: string;
 	tinyTitle: string;

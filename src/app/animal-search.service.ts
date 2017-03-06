@@ -10,47 +10,44 @@ import 'rxjs/add/operator/toPromise';
 export class AnimalSearchService {
 
 	private headers = new Headers({'Content-Type': 'application/json'});
+	private readonly cx = '017399694708952684169%3Ai75sqt8j8ko';
+    private readonly apiKey = 'AIzaSyAvn8SAwatK2SnhTPtY29T02LisZ7JSI78';
+	private readonly safetyLevel = 'high';
+	private readonly searchUrl = 'https://www.googleapis.com/customsearch/v1?';
 	
 	constructor(private http: Http) { }
 	
 	public getItems(terms: string): Promise<Array<ImageObjectInfo>> {
 		
-		const cx = '017399694708952684169%3Ai75sqt8j8ko';
-		const apiKey = 'AIzaSyAvn8SAwatK2SnhTPtY29T02LisZ7JSI78';
-		const safetyLevel = 'high';
-		const queryParams = `q=${terms}&cx=${cx}&key=${apiKey}&safe=${safetyLevel}`;
-		const searchUrl = 'https://www.googleapis.com/customsearch/v1?';
-		
+		let queryParams = `q=${terms}&cx=${this.cx}&key=${this.apiKey}&safe=${this.safetyLevel}&searchType=image`;
 		// The Angular http.get returns an RxJS Observable.  We convert it to a promise.  
 		// 
-    return this.http.get(searchUrl + queryParams)
-										.toPromise()
-										// In the promise's `then` callback we call the json method of the HTTP Response 
-										// to extract the data within the response.
-										//
-										.then(response => this.extractData(response))
-										.catch(this.handleError);
+    	return this.http.get(this.searchUrl + queryParams)
+			.toPromise()
+			// In the promise's `then` callback we call the json method of the HTTP Response 
+			// to extract the data within the response.
+			//
+			.then(response => this.extractData(response))
+			.catch(this.handleError);
 	}
 	
 	public getItemsAsync(terms: string): Observable<Array<ImageObjectInfo>> {
 		
-		const cx = '017399694708952684169%3Ai75sqt8j8ko';
-		const apiKey = 'AIzaSyAvn8SAwatK2SnhTPtY29T02LisZ7JSI78';
-		const safetyLevel = 'high';
-		const queryParams = `q=${terms}&cx=${cx}&key=${apiKey}&safe=${safetyLevel}`;
-		const searchUrl = 'https://www.googleapis.com/customsearch/v1?';
+		let queryParams = `q=${terms}&cx=${this.cx}&key=${this.apiKey}&safe=${this.safetyLevel}&searchType=image`;
 		
 		// The Angular http.get returns an RxJS Observable.
 		// 
-    return this.http.get(searchUrl + queryParams)
-										.map(response => this.extractData(response));
+    	return this.http.get(this.searchUrl + queryParams)
+			.map(response => this.extractImage(response));
 	}
 	
 	private extractData(res: Response): Array<ImageObjectInfo> {
 		
-    let body = res.json();
+    	let body = res.json();
 		let searchItems = new Array<ImageObjectInfo>();
 	
+		console.log(body);
+
 		body.items.forEach(item => {
 			
 			if (!item.pagemap) { return; } 
@@ -68,7 +65,7 @@ export class AnimalSearchService {
 				if (thumb) {
 					img.src = thumb;
 					img.title = title;
-					searchItems.push(img);
+					this.add(searchItems, img);
 				}
 			} 
 
@@ -76,20 +73,49 @@ export class AnimalSearchService {
 				const img: ImageObjectInfo = new ImageObjectInfo();
 				img.src = (cseImage.pop())["src"];
 				img.title = title;
-				searchItems.push(img);			
+				this.add(searchItems, img)
 			} else if (topImageObject) {		
 				topImageObject.forEach(img => {
 					img.title = title;					
 					img.src = (img.src && img.src.length) ? img.src : (img.contenturl && img.contenturl.length) ? img.contenturl : (img.image && img.image.length) ? img.image : img.url;				
-					if (img.src) {
-						searchItems.push(img);
-					}					
+					this.add(searchItems, img)					
 				});	
 			}
 		});
 		
 		return searchItems;
-  }
+  	}
+
+	private extractImage(res: Response): Array<ImageObjectInfo> {
+		
+    	let body = res.json();
+		let searchItems = new Array<ImageObjectInfo>();
+
+		body.items.forEach(item => {
+			const img: ImageObjectInfo = new ImageObjectInfo();
+			img.src = item.link;
+			img.title = item.title;
+			this.add(searchItems, img)
+		});
+
+		return searchItems;
+	}
+
+	private add(searchItems: Array<ImageObjectInfo>, img: ImageObjectInfo) {
+
+		if (!this.exists(searchItems, img)) {
+			searchItems.push(img);
+		}
+	}
+
+	private exists(searchItems: Array<ImageObjectInfo>, img: ImageObjectInfo) {
+
+		if (searchItems.find(i => i.src == img.src)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	private handleError(error: any): Promise<any> {
 

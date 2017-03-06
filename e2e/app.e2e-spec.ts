@@ -1,10 +1,10 @@
-import { AnimalFrenzyPage } from './app.po';
+import { UpgradeProjectPage } from './app.po';
 
-describe('animal-frenzy App', function() {
-  let page: AnimalFrenzyPage;
+describe('upgrade-project App', () => {
+  let page: UpgradeProjectPage;
 
   beforeEach(() => {
-    page = new AnimalFrenzyPage();
+    page = new UpgradeProjectPage();
   });
 
   it('should display message saying app works', () => {

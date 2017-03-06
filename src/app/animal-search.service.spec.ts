@@ -18,12 +18,12 @@ describe('AnimalSearchService', () => {
     service = animalSearchService; 
   }));
 
-	it('should retrieve ten items', (done) => {
+	it('should retrieve ten or less items', (done) => {
 		expect(service).toBeTruthy();
 		var promiseArray = service.getItems("giant pacific octupus");
 		promiseArray.then(result => { 
 			console.log(result); 
-			expect(result.length >= 10).toBeTruthy();
+			expect(result.length <= 10).toBeTruthy();
 			done();
 		});
 	});

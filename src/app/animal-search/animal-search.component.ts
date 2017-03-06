@@ -31,8 +31,8 @@ export class AnimalSearchComponent implements OnInit {
 			.distinctUntilChanged()
 			.switchMap(term => term ? this.searchService.getItemsAsync(term) : Observable.of<Array<ImageObjectInfo>>([]))
 			.catch(error => {
-        console.log(error);
-        return Observable.of<Array<ImageObjectInfo>>([]);
+        	console.log(error);
+        	return Observable.of<Array<ImageObjectInfo>>([]);
       });
   }
 	
