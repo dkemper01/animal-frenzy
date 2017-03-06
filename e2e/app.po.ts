@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class UpgradeProjectPage {
+export class AnimalFrenzyPage {
   navigateTo() {
     return browser.get('/');
   }

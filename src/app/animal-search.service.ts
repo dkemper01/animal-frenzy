@@ -19,7 +19,7 @@ export class AnimalSearchService {
 	
 	public getItems(terms: string): Promise<Array<ImageObjectInfo>> {
 		
-		let queryParams = `q=${terms}&cx=${this.cx}&key=${this.apiKey}&safe=${this.safetyLevel}&searchType=image`;
+		let queryParams = `q=${terms}&cx=${this.cx}&key=${this.apiKey}&safe=${this.safetyLevel}&searchType=image&filter=1&imgtype=photo`;
 		// The Angular http.get returns an RxJS Observable.  We convert it to a promise.  
 		// 
     	return this.http.get(this.searchUrl + queryParams)
@@ -33,7 +33,7 @@ export class AnimalSearchService {
 	
 	public getItemsAsync(terms: string): Observable<Array<ImageObjectInfo>> {
 		
-		let queryParams = `q=${terms}&cx=${this.cx}&key=${this.apiKey}&safe=${this.safetyLevel}&searchType=image`;
+		let queryParams = `q=${terms}&cx=${this.cx}&key=${this.apiKey}&safe=${this.safetyLevel}&searchType=image&filter=1&imgType=photo`;
 		
 		// The Angular http.get returns an RxJS Observable.
 		// 
