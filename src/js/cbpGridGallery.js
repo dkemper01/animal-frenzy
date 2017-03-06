@@ -326,20 +326,24 @@
 					if( ev.target.tagName.toLowerCase() !== 'ul' ) return;
 					this.removeEventListener( transEndEventName, onEndTransitionFn );
 				}
+
 				// remove classes show and current from the slideshow items
-				classie.removeClass( self.currentItem, 'current' );
-				classie.removeClass( self.currentItem, 'show' );
+				if (self.currentItem) {
+					classie.removeClass( self.currentItem, 'current' );
+					classie.removeClass( self.currentItem, 'show' );
+				}				
 				
 				if( self.prevItem ) {
 					classie.removeClass( self.prevItem, 'show' );
 				}
+
 				if( self.nextItem ) {
 					classie.removeClass( self.nextItem, 'show' );
 				}
 
 				// also reset any transforms for all the items
 				self.slideshowItems.forEach( function( item ) { setTransform( item, '' ); } );
-
+				
 				self.isSlideshowVisible = false;
 			};
 
